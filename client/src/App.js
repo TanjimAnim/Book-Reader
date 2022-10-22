@@ -11,7 +11,7 @@ import SignUpForm from "./components/auth/signup";
 
 //import context components
 import RequireAuth from "./context/authRequired";
-import Dashboard from "./components/dashboard/dashboard";
+import Dashboard from "./components/dashboard";
 import OnlyAuthorized from "./context/onlyAuthorized";
 function App() {
   return (
