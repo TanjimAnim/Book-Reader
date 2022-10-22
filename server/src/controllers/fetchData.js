@@ -1,15 +1,18 @@
-//api to get all users. for testing purpose.
+//api to get all user data
 
 const pool = require("../configs/db");
 
-const fetchData = (request, response, next) => {
+const fetchData = async (req, res, next) => {
+  const { email } = req.body;
+
   pool.query(
-    "SELECT * FROM accounts ORDER BY user_id ASC",
+    `SELECT email,username FROM accounts WHERE email= $1;`,
+    [email],
     (error, results) => {
       if (error) {
-        throw error;
+        next(error);
       }
-      response.status(200).json(results.rows);
+      res.status(200).json(results.rows);
     }
   );
 };
