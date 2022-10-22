@@ -1,3 +1,5 @@
+//api to get all users. for testing purpose.
+
 const pool = require("../configs/db");
 
 const fetchData = (request, response, next) => {
