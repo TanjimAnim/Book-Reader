@@ -13,8 +13,8 @@ const addData = require("../controllers/addData");
 const getData = require("../controllers/getData");
 const deleteData = require("../controllers/deleteData");
 
-//example route to get all userdata
-router.get("/", fetchData);
+//route to get user data
+router.get("/fetch-data", auth, fetchData);
 
 //signup or registration of user
 router.post("/signup", signup);
