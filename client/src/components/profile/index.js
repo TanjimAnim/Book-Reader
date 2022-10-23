@@ -6,13 +6,18 @@ import axios from "axios";
 import { useAuthContext } from "../../context/authcontext";
 import BookList from "./book-list";
 
-function Profile() {
+//hooks from chakraUI
+import { useDisclosure } from "@chakra-ui/react";
+import AddBookModal from "./add-book-modal";
+
+function Profile({ listOfBooks, onSuccessfulUpload }) {
   const [username, setUsername] = useState("");
   const [error, setError] = useState(null);
 
   const { getToken } = useAuthContext();
   const token = getToken();
 
+  const { isOpen, onOpen, onClose } = useDisclosure(); //chakraUI hooks
   useEffect(() => {
     axios
       .get("http://localhost:5000/fetch-data", {
@@ -39,15 +44,25 @@ function Profile() {
           <Box display="flex" justifyContent="space-between">
             <Text>Hi {username}! Here is your reading list</Text>
             <Box
+              cursor="pointer"
               background="rgba(201, 46, 255, 0.08)"
               border="1px solid #ECB7FF"
               borderRadius=" 8px"
               color="#C92EFF"
+              onClick={onOpen}
             >
               Add Book
             </Box>
           </Box>
-          <BookList />
+          <AddBookModal
+            isOpen={isOpen}
+            onClose={onClose}
+            onSuccessfulUpload={onSuccessfulUpload}
+          />
+          <BookList
+            listOfBooks={listOfBooks}
+            onSuccessfulUpload={onSuccessfulUpload}
+          />
         </>
       )}
     </>
