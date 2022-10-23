@@ -8,7 +8,7 @@ const deleteData = async (req, res, next) => {
     if (
       book_id === "" ||
       book_id === undefined ||
-      typeof book_id !== "number"
+      typeof parseInt(book_id) !== "number"
     ) {
       throw new Error("Error in book");
     }
