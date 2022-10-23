@@ -12,6 +12,8 @@ const auth = require("../middlewares/auth");
 const addData = require("../controllers/addData");
 const getData = require("../controllers/getData");
 const deleteData = require("../controllers/deleteData");
+const addFavorite = require("../controllers/addFavorite");
+const removeFavorite = require("../controllers/removeFavorite");
 
 //route to get user data
 router.get("/fetch-data", auth, fetchData);
@@ -30,5 +32,11 @@ router.get("/get-books", auth, getData);
 
 //deleting books
 router.post("/delete-book", auth, deleteData);
+
+//add a book as favorite
+router.post("/add-favorite", auth, addFavorite);
+
+//remove a book from favorite
+router.post("/remove-favorite", auth, removeFavorite);
 
 module.exports = router;
