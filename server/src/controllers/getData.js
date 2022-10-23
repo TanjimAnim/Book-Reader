@@ -15,7 +15,7 @@ const fetchData = async (req, res, next) => {
       throw new Error("user not found");
     } else {
       pool.query(
-        `SELECT * FROM books where user_id=$1`,
+        `SELECT * FROM books where user_id=$1 ORDER BY book_id`,
         [existingUser.rows[0].user_id],
         (err, data) => {
           if (err) {
