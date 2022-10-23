@@ -37,19 +37,38 @@ function Profile({ listOfBooks, onSuccessfulUpload }) {
     <>
       {error ? (
         <>
-          <Text>{error}</Text>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            marginX="88px"
+            marginY="34px"
+            width="86%"
+          >
+            <Text>{error}</Text>
+          </Box>
         </>
       ) : (
         <>
-          <Box display="flex" justifyContent="space-between">
-            <Text>Hi {username}! Here is your reading list</Text>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            marginX="88px"
+            marginY="34px"
+            width="86%"
+          >
+            <Text fontWeight={400} fontSize="20px">
+              Hi {username}! Here is your reading list
+            </Text>
             <Box
+              width="130px"
               cursor="pointer"
               background="rgba(201, 46, 255, 0.08)"
               border="1px solid #ECB7FF"
               borderRadius=" 8px"
               color="#C92EFF"
               onClick={onOpen}
+              fontWeight={500}
+              textAlign="center"
             >
               Add Book
             </Box>

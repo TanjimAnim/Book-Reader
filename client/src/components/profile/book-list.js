@@ -1,4 +1,11 @@
-import { Box, Text, Image, useDisclosure, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Image,
+  useDisclosure,
+  Link,
+  chakra,
+} from "@chakra-ui/react";
 import deleteIconImage from "../assets/delete.png";
 import favoriteIconImage1 from "../assets/favorite1.png";
 import favoriteIconImage2 from "../assets/favorite2.png";
@@ -63,55 +70,85 @@ function BookList({ listOfBooks, onSuccessfulUpload }) {
   return (
     <div id="books-list">
       {listOfBooks.length === 0 ? (
-        <Box>
-          {" "}
-          <Text> You have no books for now. Please click on add books. </Text>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          marginX="88px"
+          marginY="34px"
+          width="86%"
+          fontSize="20px"
+        >
+          <Text>You have no books for now. Please click on add books.</Text>
         </Box>
       ) : (
         <>
           {listOfBooks.map((items) => (
             <div>
-              <Box width="1024px" key={items.book_id}>
-                <Link href={`/dashboard/${items.book_id}/${items.book_slug}`}>
-                  <Text fontSize="28px" fontWeight={700}>
-                    {items.book_name}
-                  </Text>
-                </Link>
-
-                <Text fontSize="20px">Author:{items.book_author}</Text>
-                <Text fontSize="28px">Year:{items.year}</Text>
-                <Box display="flex" gap="15px">
-                  {items.favorite ? (
-                    <Box
-                      style={boxIconStyle}
-                      onClick={() => {
-                        setId(items.book_id);
-                        removeFavorite(items.book_id);
-                      }}
+              <Box
+                marginX="88px"
+                key={items.book_id}
+                background="white"
+                width="86%"
+                padding="32px"
+                marginY="35px"
+              >
+                <Box display="flex" width="100%" justifyContent="space-between">
+                  <Box>
+                    <Link
+                      href={`/dashboard/${items.book_id}/${items.book_slug}`}
                     >
-                      <Image src={favoriteIconImage2} />
-                    </Box>
-                  ) : (
-                    <Box
-                      style={boxIconStyle}
-                      onClick={() => {
-                        setId(items.book_id);
-                        addFavorite(items.book_id);
-                      }}
-                    >
-                      <Image src={favoriteIconImage1} />
-                    </Box>
-                  )}
-
-                  <Box
-                    style={boxIconStyle}
-                    onClick={() => {
-                      onOpen();
-                      setId(items.book_id);
-                    }}
-                  >
-                    <Image src={deleteIconImage} />
+                      <Text fontSize="28px" fontWeight={700}>
+                        {items.book_name}
+                      </Text>
+                    </Link>
                   </Box>
+
+                  <Box display="flex" gap="15px">
+                    {items.favorite ? (
+                      <Box
+                        style={boxIconStyle}
+                        onClick={() => {
+                          setId(items.book_id);
+                          removeFavorite(items.book_id);
+                        }}
+                      >
+                        <Image src={favoriteIconImage2} />
+                      </Box>
+                    ) : (
+                      <Box
+                        style={boxIconStyle}
+                        onClick={() => {
+                          setId(items.book_id);
+                          addFavorite(items.book_id);
+                        }}
+                      >
+                        <Image src={favoriteIconImage1} />
+                      </Box>
+                    )}
+
+                    <Box
+                      style={boxIconStyle}
+                      onClick={() => {
+                        onOpen();
+                        setId(items.book_id);
+                      }}
+                    >
+                      <Image src={deleteIconImage} />
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" gap="79px">
+                  <Text fontSize="20px" fontWeight={700}>
+                    Author:
+                    <chakra.span fontWeight={400}>
+                      {" "}
+                      {items.book_author}
+                    </chakra.span>{" "}
+                  </Text>
+                  <Text fontSize="20px" fontWeight={700}>
+                    Year:
+                    <chakra.span fontWeight={400}> {items.year}</chakra.span>
+                  </Text>
                 </Box>
               </Box>
             </div>

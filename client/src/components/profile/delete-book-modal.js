@@ -10,12 +10,13 @@ import {
 import axios from "axios";
 
 import React from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../../context/authcontext";
 
 function DeleteBookModal({ isOpen, onClose, onSuccessfulUpload, id }) {
   const { getToken } = useAuthContext();
+  const navigate = useNavigate();
   const token = getToken();
   const deleteBook = async () => {
     axios
@@ -25,9 +26,9 @@ function DeleteBookModal({ isOpen, onClose, onSuccessfulUpload, id }) {
       })
       .then((response) => {
         console.log("delete", response);
-        // alert(`${response.data.message}`);
+        alert(`${response.data.message}`);
         onSuccessfulUpload();
-        redirect("/dashboard");
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.log(error.response.statusText);
