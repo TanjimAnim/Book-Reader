@@ -17,7 +17,11 @@ const addData = async (req, res, next) => {
     ) {
       throw new Error("Error in book name");
     }
-    if (year === undefined || year === "" || typeof year !== "number") {
+    if (
+      year === undefined ||
+      year === "" ||
+      typeof parseInt(year) !== "number"
+    ) {
       throw new Error("Error in year");
     }
     if (
@@ -42,7 +46,13 @@ const addData = async (req, res, next) => {
     } else {
       pool.query(
         `INSERT INTO books(book_name, year, book_author,user_id,book_slug) VALUES ($1,$2,$3,$4,$5);`,
-        [book_name, year, book_author, existingUser.rows[0].user_id, book_slug],
+        [
+          book_name,
+          parseInt(year),
+          book_author,
+          existingUser.rows[0].user_id,
+          book_slug,
+        ],
         (err) => {
           if (err) {
             console.error(err);
