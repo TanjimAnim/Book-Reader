@@ -122,7 +122,6 @@ function AddBookModal(props) {
                 }}
                 borderRadius="4px"
                 width="100%"
-                onClick={props.onClose}
               >
                 Add book
               </Button>

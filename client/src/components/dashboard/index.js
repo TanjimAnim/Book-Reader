@@ -6,6 +6,9 @@ import { useAuthContext } from "../../context/authcontext";
 //importing components
 import Navbar from "../navbar";
 import Profile from "../profile";
+import SingleBookPage from "../single-book";
+
+import { Routes, Route } from "react-router-dom";
 
 export default function Dashboard() {
   const [listOfBooks, setListOfBooks] = useState([]);
@@ -35,10 +38,27 @@ export default function Dashboard() {
     <>
       <Box minHeight="100vh" background="#F9F9F9">
         <Navbar />
-        <Profile
-          listOfBooks={listOfBooks}
-          onSuccessfulUpload={refreshBooksList}
-        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Profile
+                listOfBooks={listOfBooks}
+                onSuccessfulUpload={refreshBooksList}
+              />
+            }
+          />
+
+          <Route
+            path="/:book_id/:slug"
+            element={
+              <SingleBookPage
+                listOfBooks={listOfBooks}
+                onSuccessfulUpload={refreshBooksList}
+              />
+            }
+          />
+        </Routes>
       </Box>
     </>
   );

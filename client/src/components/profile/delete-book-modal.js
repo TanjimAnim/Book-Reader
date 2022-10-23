@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 
 import React from "react";
+import { redirect } from "react-router-dom";
 
 import { useAuthContext } from "../../context/authcontext";
 
@@ -23,9 +24,10 @@ function DeleteBookModal({ isOpen, onClose, onSuccessfulUpload, id }) {
         book_id: `${id}`,
       })
       .then((response) => {
-        console.log(response);
-        alert(`${response.data.message}`);
+        console.log("delete", response);
+        // alert(`${response.data.message}`);
         onSuccessfulUpload();
+        redirect("/dashboard");
       })
       .catch((error) => {
         console.log(error.response.statusText);

@@ -1,4 +1,4 @@
-import { Box, Text, Image, useDisclosure } from "@chakra-ui/react";
+import { Box, Text, Image, useDisclosure, Link } from "@chakra-ui/react";
 import deleteIconImage from "../assets/delete.png";
 import favoriteIconImage1 from "../assets/favorite1.png";
 import favoriteIconImage2 from "../assets/favorite2.png";
@@ -11,7 +11,7 @@ import axios from "axios";
 
 import { useAuthContext } from "../../context/authcontext";
 
-const boxIconStyle = {
+export const boxIconStyle = {
   padding: "0.5rem",
   width: "33px",
   height: "37px",
@@ -72,9 +72,12 @@ function BookList({ listOfBooks, onSuccessfulUpload }) {
           {listOfBooks.map((items) => (
             <div>
               <Box width="1024px" key={items.book_id}>
-                <Text fontSize="28px" fontWeight={700}>
-                  {items.book_name}
-                </Text>
+                <Link href={`/dashboard/${items.book_id}/${items.book_slug}`}>
+                  <Text fontSize="28px" fontWeight={700}>
+                    {items.book_name}
+                  </Text>
+                </Link>
+
                 <Text fontSize="20px">Author:{items.book_author}</Text>
                 <Text fontSize="28px">Year:{items.year}</Text>
                 <Box display="flex" gap="15px">
