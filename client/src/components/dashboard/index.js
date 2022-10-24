@@ -70,6 +70,7 @@ export default function Dashboard() {
             }
           />
           <Route path="*" element={<NotFound />} />
+          <Route path="/dashboard/*" element={<NotFound />} />
         </Routes>
       </Box>
     </>
