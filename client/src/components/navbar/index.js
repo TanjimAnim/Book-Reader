@@ -43,12 +43,22 @@ function Navbar() {
         padding="1rem"
         alignItems="center"
       >
-        <Box display="flex" gap="15px" alignItems="center" marginLeft="88px">
-          <Image src={bookrdrLogo} width="32px" height="26.21px" />
-          <Text fontSize="32px" color="#C92EFF" fontWeight={400}>
-            Bookrdr
-          </Text>
+        <Box marginLeft="88px">
+          <Link
+            href="/dashboard"
+            _focus={{ textDecoration: "none" }}
+            _hover={{ textDecoration: "none" }}
+            display="flex"
+            gap="15px"
+            alignItems="center"
+          >
+            <Image src={bookrdrLogo} width="32px" height="26.21px" />
+            <Text fontSize="32px" color="#C92EFF" fontWeight={400}>
+              Bookrdr
+            </Text>
+          </Link>
         </Box>
+
         <Box display="flex" gap="15px" width="20%">
           <Link
             href="/dashboard"
@@ -58,7 +68,13 @@ function Navbar() {
             <Text style={textStyle}>My Books</Text>
           </Link>
 
-          <Text style={textStyle}>Favorites</Text>
+          <Link
+            href="/dashboard/favorite"
+            _focus={{ textDecoration: "none" }}
+            _hover={{ textDecoration: "none" }}
+          >
+            <Text style={textStyle}>Favorites</Text>
+          </Link>
 
           <Text style={textStyle} onClick={logout}>
             Logout
