@@ -9,6 +9,7 @@ import Profile from "../profile";
 import SingleBookPage from "../single-book";
 
 import { Routes, Route } from "react-router-dom";
+import FavoriteBookList from "../favorites";
 
 export default function Dashboard() {
   const [listOfBooks, setListOfBooks] = useState([]);
@@ -53,6 +54,15 @@ export default function Dashboard() {
             path="/:book_id/:slug"
             element={
               <SingleBookPage
+                listOfBooks={listOfBooks}
+                onSuccessfulUpload={refreshBooksList}
+              />
+            }
+          />
+          <Route
+            path="/favorite"
+            element={
+              <FavoriteBookList
                 listOfBooks={listOfBooks}
                 onSuccessfulUpload={refreshBooksList}
               />
