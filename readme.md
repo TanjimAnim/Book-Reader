@@ -23,7 +23,7 @@ Server side-
 
 ## Start Backend-
 
-````
+```
    # go to server folder
    cd server
    # install dependencies
@@ -33,7 +33,7 @@ Server side-
    # run database schema migrations using PGAdmin/CLI
    # start
    npx nodemon
-```shell
+```
 
 ## Start Frontend-
 
@@ -51,6 +51,4 @@ npm i
 
 npm start
 
-```bash
-
-````
+```
