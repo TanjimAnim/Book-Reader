@@ -10,8 +10,7 @@ CREATE TABLE IF NOT EXISTS public.accounts
     password character varying COLLATE pg_catalog."default",
     token text COLLATE pg_catalog."default",
     CONSTRAINT user_pk PRIMARY KEY (user_id),
-    CONSTRAINT user_uk_email UNIQUE (email),
-    CONSTRAINT user_uk_username UNIQUE (username)
+    CONSTRAINT user_uk_email UNIQUE (email)
 )
 
 TABLESPACE pg_default;
