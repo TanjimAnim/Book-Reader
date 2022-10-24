@@ -23,21 +23,24 @@ Server side-
 
 ## Start Backend-
 
-1. go to server folder <br>
-   `cd server`
-2. install dependencies <br>
-   `npm i`
-3. start database <br>
-   `docker-compose up`
-4. run database schema migrations using PGAdmin/CLI <br>
-5. start <br>
-   `npx nodemon`
+```
+  # go to server folder
+   cd server
+  # install dependencies
+   npm i
+  # start database
+   docker-compose up
+  # run database schema migrations using PGAdmin/CLI
+  # start
+   npx nodemon
 
 ## Start Frontend-
 
-1. go to client folder <br>
-   `cd client`
-2. install dependencies <br>
-   `npm i`
-3. start <br>
-   `npm start`
+# go to client folder
+   cd client
+# install dependencies
+   npm i
+# start
+   npm start
+
+```
