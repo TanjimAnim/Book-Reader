@@ -9,6 +9,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 
 import { useAuthContext } from "../../context/authcontext";
@@ -19,6 +20,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function EditBookModal(props) {
+  const toast = useToast(); // toast hooks for push notification
   const { getToken } = useAuthContext();
   const token = getToken();
   const [input, setInput] = useState({
@@ -48,15 +50,26 @@ function EditBookModal(props) {
       })
       .then(function (response) {
         console.log(response);
-        alert(`${response.data.message}`);
         props.onSuccessfulUpload();
         props.onClose();
         navigate(
           `/dashboard/${response.data.book_id}/${response.data.book_name}`
         );
+        toast({
+          title: `${response.data.message}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       })
       .catch(function (error) {
         console.log(error.response);
+        toast({
+          title: `${error.response.statusText}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
 

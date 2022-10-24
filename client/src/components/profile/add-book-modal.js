@@ -9,6 +9,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 
 import { useAuthContext } from "../../context/authcontext";
@@ -24,7 +25,7 @@ function AddBookModal(props) {
     year: "",
     book_author: "",
   });
-
+  const toast = useToast(); // toast hooks for push notification
   const handleChange = (event) => {
     input[event.target.name] = event.target.value;
     setInput(input);
@@ -43,12 +44,23 @@ function AddBookModal(props) {
       })
       .then(function (response) {
         console.log(response);
-        alert(`${response.data.message}`);
+        toast({
+          title: `${response.data.message}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
         props.onSuccessfulUpload();
         props.onClose();
       })
       .catch(function (error) {
         console.log(error.response);
+        toast({
+          title: `${error.response.statusText}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
 

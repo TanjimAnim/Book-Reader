@@ -6,6 +6,7 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -18,6 +19,7 @@ function DeleteBookModal({ isOpen, onClose, onSuccessfulUpload, id }) {
   const { getToken } = useAuthContext();
   const navigate = useNavigate();
   const token = getToken();
+  const toast = useToast(); // toast hooks for push notification
   const deleteBook = async () => {
     axios
       .post("http://localhost:5000/delete-book", {
@@ -26,13 +28,23 @@ function DeleteBookModal({ isOpen, onClose, onSuccessfulUpload, id }) {
       })
       .then((response) => {
         console.log("delete", response);
-        alert(`${response.data.message}`);
         onSuccessfulUpload();
         navigate("/dashboard");
+        toast({
+          title: `${response.data.message}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.log(error.response.statusText);
-        alert(`${error.response.statusText}`);
+        toast({
+          title: `${error.response.statusText}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
   const cancelRef = React.useRef();

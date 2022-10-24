@@ -10,6 +10,7 @@ import {
   Textarea,
   chakra,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 
 //import icon image
@@ -31,6 +32,7 @@ import DeleteBookModal from "../profile/delete-book-modal";
 import EditBookModal from "./edit-book-modal";
 
 function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
+  const toast = useToast(); // toast hooks for push notification
   const {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
@@ -67,9 +69,21 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
       .then((response) => {
         console.log(response.data);
         onSuccessfulUpload();
+        toast({
+          title: `${response.data.message}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.log(error);
+        toast({
+          title: `${error.response.statusText}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
 
@@ -83,9 +97,21 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
       .then((response) => {
         console.log(response.data);
         onSuccessfulUpload();
+        toast({
+          title: `${response.data.message}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.log(error);
+        toast({
+          title: `${error.response.statusText}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
 
@@ -99,12 +125,22 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
       })
       .then((response) => {
         console.log("update", response);
-        alert(`${response.data.message}`);
         onSuccessfulUpload();
+        toast({
+          title: `${response.data.message}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.log(error.response.statusText);
-        alert(`${error.response.statusText}`);
+        toast({
+          title: `${error.response.statusText}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
 
