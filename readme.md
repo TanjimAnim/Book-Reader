@@ -38,17 +38,16 @@ Server side-
 ## Start Frontend-
 
 ```
+    # go to client folder
 
-# go to client folder
+    cd client
 
-cd client
+    # install dependencies
 
-# install dependencies
+    npm i
 
-npm i
+    # start
 
-# start
-
-npm start
+    npm start
 
 ```
