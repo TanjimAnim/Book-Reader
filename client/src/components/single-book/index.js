@@ -8,7 +8,6 @@ import {
   FormControl,
   FormLabel,
   Textarea,
-  Input,
   chakra,
   Button,
 } from "@chakra-ui/react";
@@ -28,13 +27,35 @@ import axios from "axios";
 //delete modal
 import DeleteBookModal from "../profile/delete-book-modal";
 
+//update book modal
+import EditBookModal from "./edit-book-modal";
+
 function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure();
+  const {
+    isOpen: isDeleteOpen,
+    onOpen: onDeleteOpen,
+    onClose: onDeleteClose,
+  } = useDisclosure();
+
+  //gettoken from context
   const { getToken } = useAuthContext();
   const token = getToken();
 
   const { book_id } = useParams();
   const [id, setId] = useState(null);
+
+  const [input, setInput] = useState({
+    book_summary: "",
+  });
+  const handleChange = (event) => {
+    input[event.target.name] = event.target.value;
+    setInput(input);
+  };
 
   const addFavorite = async (id) => {
     console.log(id);
@@ -65,6 +86,25 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
       })
       .catch((error) => {
         console.log(error);
+      });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:5000/update-summary", {
+        token: `${token}`,
+        book_id: `${book_id}`,
+        book_summary: `${input.book_summary}`,
+      })
+      .then((response) => {
+        console.log("update", response);
+        alert(`${response.data.message}`);
+        onSuccessfulUpload();
+      })
+      .catch((error) => {
+        console.log(error.response.statusText);
+        alert(`${error.response.statusText}`);
       });
   };
 
@@ -117,13 +157,19 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
                       <Box
                         style={boxIconStyle}
                         onClick={() => {
-                          onOpen();
+                          onDeleteOpen();
                           setId(item.book_id);
                         }}
                       >
                         <Image src={deleteIconImage} />
                       </Box>
-                      <Box style={boxIconStyle}>
+                      <Box
+                        style={boxIconStyle}
+                        onClick={() => {
+                          onEditOpen();
+                          setId(item.book_id);
+                        }}
+                      >
                         <Image src={editIconImage} />
                       </Box>
                     </Box>
@@ -141,50 +187,59 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
                       <chakra.span fontWeight={400}> {item.year}</chakra.span>
                     </Text>
                   </Box>
+                  <Box>
+                    <form onSubmit={handleSubmit}>
+                      <FormControl id="comment" isRequired>
+                        <FormLabel color="#6F7482" fontSize="18px">
+                          Book Summary
+                        </FormLabel>
+                        <Textarea
+                          placeholder={`${item.book_summary}`}
+                          minLength="150"
+                          maxLength="255"
+                          _focus={{
+                            zIndex: "0",
+                            borderColor: "#3182ce",
+                          }}
+                          size="md"
+                          background="white"
+                          name="book_summary"
+                          value={input.summary}
+                          onChange={handleChange}
+                        />
+                      </FormControl>
+                      <Button
+                        marginTop="2%"
+                        background="#ECB7FF"
+                        color="#C82EFF"
+                        type="submit"
+                        value="Submit"
+                        _hover={{
+                          bgGradient: "linear(to-r, red.500, yellow.500)",
+                          color: "white",
+                        }}
+                        borderRadius="4px"
+                        width="10%"
+                      >
+                        Save summary
+                      </Button>
+                    </form>
+                  </Box>
                 </Box>
               );
             })}
-          <Box marginY="37px" width="86%" marginX="88px" padding="32px">
-            <form>
-              <FormControl id="comment" isRequired>
-                <FormLabel color="#6F7482" fontSize="18px">
-                  Write a summary of the book
-                </FormLabel>
-                <Textarea
-                  placeholder="write a summary of the book"
-                  minLength="150"
-                  maxLength="255"
-                  _focus={{
-                    zIndex: "0",
-                    borderColor: "#3182ce",
-                  }}
-                  size="md"
-                  background="white"
-                />
-              </FormControl>
-              <Button
-                marginTop="2%"
-                background="#ECB7FF"
-                color="#C82EFF"
-                type="submit"
-                value="Submit"
-                _hover={{
-                  bgGradient: "linear(to-r, red.500, yellow.500)",
-                  color: "white",
-                }}
-                borderRadius="4px"
-                width="10%"
-              >
-                Save summary
-              </Button>
-            </form>
-          </Box>
 
           <DeleteBookModal
-            isOpen={isOpen}
-            onClose={onClose}
+            isOpen={isDeleteOpen}
+            onClose={onDeleteClose}
             onSuccessfulUpload={onSuccessfulUpload}
             id={id}
+          />
+          <EditBookModal
+            isOpen={isEditOpen}
+            onClose={onEditClose}
+            onSuccessfulUpload={onSuccessfulUpload}
+            book_id={id}
           />
         </>
       ) : (
