@@ -5,6 +5,7 @@ import {
   useDisclosure,
   Link,
   chakra,
+  useToast,
 } from "@chakra-ui/react";
 import deleteIconImage from "../assets/delete.png";
 import favoriteIconImage1 from "../assets/favorite1.png";
@@ -29,6 +30,7 @@ export const boxIconStyle = {
 };
 
 function FavoriteBookList({ listOfBooks, onSuccessfulUpload }) {
+  const toast = useToast(); // toast hooks for push notification,hook of chakraUI
   const { isOpen, onOpen, onClose } = useDisclosure(); //chakraUI hooks
   const [id, setId] = useState(null);
   const { getToken } = useAuthContext();
@@ -45,9 +47,21 @@ function FavoriteBookList({ listOfBooks, onSuccessfulUpload }) {
       .then((response) => {
         console.log(response.data);
         onSuccessfulUpload();
+        toast({
+          title: `${response.data.message}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.log(error);
+        toast({
+          title: `${error.response.statusText}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
 
@@ -61,9 +75,21 @@ function FavoriteBookList({ listOfBooks, onSuccessfulUpload }) {
       .then((response) => {
         console.log(response.data);
         onSuccessfulUpload();
+        toast({
+          title: `${response.data.message}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.log(error);
+        toast({
+          title: `${error.response.statusText}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
 
