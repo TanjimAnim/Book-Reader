@@ -25,6 +25,7 @@ Server side-
 
 ## How to install
 
+- clone the repo
 - go to server folder
 - type command `docker-compose up` to run postgres database
 - using PGAdmin/CLI run the files in migrations, those are scripts of replicating the database
