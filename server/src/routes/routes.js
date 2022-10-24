@@ -15,6 +15,8 @@ const deleteData = require("../controllers/deleteData");
 const addFavorite = require("../controllers/addFavorite");
 const removeFavorite = require("../controllers/removeFavorite");
 const logout = require("../controllers/logout");
+const updateData = require("../controllers/updateData");
+const updateSummary = require("../controllers/updateSummary");
 
 //route to get user data
 router.get("/fetch-data", auth, fetchData);
@@ -42,5 +44,11 @@ router.post("/remove-favorite", auth, removeFavorite);
 
 //logout api
 router.post("/logout", auth, logout);
+
+//update book data
+router.post("/update-book", auth, updateData);
+
+//update book summary
+router.post("/update-summary", auth, updateSummary);
 
 module.exports = router;
