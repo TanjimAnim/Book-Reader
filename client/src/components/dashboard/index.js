@@ -10,6 +10,7 @@ import SingleBookPage from "../single-book";
 
 import { Routes, Route } from "react-router-dom";
 import FavoriteBookList from "../favorites";
+import NotFound from "../../notfound";
 
 export default function Dashboard() {
   const [listOfBooks, setListOfBooks] = useState([]);
@@ -68,6 +69,7 @@ export default function Dashboard() {
               />
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Box>
     </>
