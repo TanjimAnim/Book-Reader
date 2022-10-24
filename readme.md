@@ -25,12 +25,19 @@ Server side-
 
 ```
    # go to server folder
+
    cd server
+
    # install dependencies
+
    npm i
+
    # start database
+
    docker-compose up
+
    # run database schema migrations using PGAdmin/CLI
+
    # start
    npx nodemon
 ```
