@@ -13,6 +13,7 @@ import SignUpForm from "./components/auth/signup";
 import RequireAuth from "./context/authRequired";
 import Dashboard from "./components/dashboard";
 import OnlyAuthorized from "./context/onlyAuthorized";
+import NotFound from "./notfound";
 function App() {
   return (
     <ChakraProvider>
@@ -44,6 +45,7 @@ function App() {
                 </RequireAuth>
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </AuthContextProvider>
