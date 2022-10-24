@@ -1,0 +1,28 @@
+version: '3.5'
+
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24
+
+services:
+  database:
+    hostname: database
+    image: postgres
+    environment:
+      PGDATA: /var/lib/postgresql/data/nerdio
+      POSTGRES_DB: bookreader
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      internal:
+        ipv4_address: 10.0.0.20
+    ports:
+      - 5432:5432
+    volumes:
+      - ./.docker/postgres/bookreader:/var/lib/postgresql/data/bookreader
+    restart: unless-stopped
+
