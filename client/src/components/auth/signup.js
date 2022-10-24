@@ -32,7 +32,7 @@ export default function SignUpForm() {
     user_email: "",
     user_password: "",
   });
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({});
   const [isLoading, setIsloading] = useState(false);
 
   const handleChange = (event) => {
@@ -40,36 +40,71 @@ export default function SignUpForm() {
     setInput(input);
   };
 
+  //validating form inputs
+  function validate() {
+    let checkInput = input;
+    let errors = {};
+    let isValid = true;
+
+    if (checkInput["user_username"].length < 8) {
+      isValid = false;
+      errors["name"] = "Username should be minimum 8 characters long.";
+    }
+
+    if (typeof checkInput["user_email"] !== "undefined") {
+      var pattern = new RegExp(
+        /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+      );
+      if (!pattern.test(input["user_email"])) {
+        isValid = false;
+        errors["email"] = "Please enter valid email address.";
+      }
+    }
+
+    if (checkInput["user_password"].length < 8) {
+      isValid = false;
+      errors["password"] = "Password should be minimum 8 characters long";
+    }
+
+    if (checkInput["user_password"].length > 36) {
+      isValid = false;
+      errors["password"] = "Password should be of maximum 36 characters long";
+    }
+
+    setError(errors);
+    return isValid;
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    Array.from(document.querySelectorAll("input")).forEach(
-      (input) => (input.value = "")
-    );
-    setIsloading(true);
+    console.log(error);
+    if (validate()) {
+      Array.from(document.querySelectorAll("input")).forEach(
+        (input) => (input.value = "")
+      );
+      setIsloading(true);
 
-    console.log(input.user_email);
-    console.log(input.user_password);
-    console.log(input.user_username);
-    const response = await axios
-      .post("http://localhost:5000/signup", {
-        username: `${input.user_username}`,
-        email: `${input.user_email}`,
-        password: `${input.user_password}`,
-      })
-      .then(function (response) {
-        console.log(response);
-        setToken(response.data.token);
-        setIsAuthed(true);
-        setIsloading(false);
-        redirect("/dashboard");
-      })
-      .catch(function (error) {
-        console.log(error.response);
-        setError({ error: `${error.response.data}` });
-        setIsAuthed(false);
-        setIsloading(false);
-        redirect("/");
-      });
+      const response = axios
+        .post("http://localhost:5000/signup", {
+          username: `${input.user_username}`,
+          email: `${input.user_email}`,
+          password: `${input.user_password}`,
+        })
+        .then(function (response) {
+          console.log(response);
+          setToken(response.data.token);
+          setIsAuthed(true);
+          setIsloading(false);
+          redirect("/dashboard");
+        })
+        .catch(function (error) {
+          console.log(error.response.data);
+          setError({ error: `${error.response.data}` });
+          setIsAuthed(false);
+          setIsloading(false);
+          redirect("/");
+        });
+    }
   };
   return (
     <>
@@ -141,6 +176,9 @@ export default function SignUpForm() {
                     value={input.username}
                     onChange={handleChange}
                   />
+                  <Text color="red" fontSize="18px" fontWeight={700}>
+                    {error.name}
+                  </Text>
                 </FormControl>
                 <FormControl id="email" isRequired>
                   <FormLabel fontSize="18px">Email</FormLabel>
@@ -155,6 +193,9 @@ export default function SignUpForm() {
                     value={input.email}
                     onChange={handleChange}
                   />
+                  <Text color="red" fontSize="18px" fontWeight={700}>
+                    {error.email}
+                  </Text>
                 </FormControl>
 
                 <FormControl id="password" isRequired>
@@ -170,6 +211,9 @@ export default function SignUpForm() {
                     value={input.password}
                     onChange={handleChange}
                   />
+                  <Text color="red" fontSize="18px" fontWeight={700}>
+                    {error.password}
+                  </Text>
                 </FormControl>
                 <Text fontSize="14px" fontWeight={400} marginY="16px">
                   By signing in, you agree with our privacy and usage terms
@@ -193,7 +237,7 @@ export default function SignUpForm() {
                 </Box>
               </form>
             </Box>
-            {error ? (
+            {error.error ? (
               <Box
                 display="flex"
                 justifyContent="space-between"
