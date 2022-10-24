@@ -33,9 +33,11 @@ Server side-
   # run database schema migrations using PGAdmin/CLI
   # start
    npx nodemon
+```
 
 ## Start Frontend-
 
+```
 # go to client folder
    cd client
 # install dependencies
