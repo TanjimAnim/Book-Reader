@@ -49,7 +49,6 @@ function EditBookModal(props) {
         book_id: `${props.book_id}`,
       })
       .then(function (response) {
-        console.log(response);
         props.onSuccessfulUpload();
         props.onClose();
         navigate(
@@ -63,7 +62,6 @@ function EditBookModal(props) {
         });
       })
       .catch(function (error) {
-        console.log(error.response);
         toast({
           title: `${error.response.statusText}`,
           status: "error",

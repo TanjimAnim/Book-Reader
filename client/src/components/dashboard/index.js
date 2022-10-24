@@ -24,7 +24,6 @@ export default function Dashboard() {
         },
       })
       .then(function (response) {
-        console.log(response.data);
         setListOfBooks(response.data);
       })
       .catch(function (error) {

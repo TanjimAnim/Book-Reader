@@ -43,7 +43,6 @@ function AddBookModal(props) {
         year: input.year,
       })
       .then(function (response) {
-        console.log(response);
         toast({
           title: `${response.data.message}`,
           status: "success",
@@ -54,7 +53,6 @@ function AddBookModal(props) {
         props.onClose();
       })
       .catch(function (error) {
-        console.log(error.response);
         toast({
           title: `${error.response.statusText}`,
           status: "error",

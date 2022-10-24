@@ -21,7 +21,6 @@ function Navbar() {
         token: `${token}`,
       })
       .then((response) => {
-        console.log(response.data);
         setIsAuthed(false);
         localStorage.clear();
         redirect("/");

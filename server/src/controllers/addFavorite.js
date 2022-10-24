@@ -23,8 +23,6 @@ const addFavorite = async (req, res, next) => {
       [book_id, existingUser.rows[0].user_id]
     );
 
-    console.log(getBookData.rows);
-
     if (getBookData.rows.length === 0) {
       throw new Error("book not found");
     }

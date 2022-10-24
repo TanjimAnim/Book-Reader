@@ -27,7 +27,6 @@ function DeleteBookModal({ isOpen, onClose, onSuccessfulUpload, id }) {
         book_id: `${id}`,
       })
       .then((response) => {
-        console.log("delete", response);
         onSuccessfulUpload();
         navigate("/dashboard");
         toast({
@@ -38,7 +37,6 @@ function DeleteBookModal({ isOpen, onClose, onSuccessfulUpload, id }) {
         });
       })
       .catch((error) => {
-        console.log(error.response.statusText);
         toast({
           title: `${error.response.statusText}`,
           status: "error",

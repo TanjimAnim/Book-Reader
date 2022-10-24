@@ -35,17 +35,14 @@ function BookList({ listOfBooks, onSuccessfulUpload }) {
   const [id, setId] = useState(null);
   const { getToken } = useAuthContext();
   const token = getToken();
-  console.log(listOfBooks);
 
   const addFavorite = async (id) => {
-    console.log(id);
     axios
       .post("http://localhost:5000/add-favorite", {
         token: `${token}`,
         book_id: `${id}`,
       })
       .then((response) => {
-        console.log(response.data);
         onSuccessfulUpload();
         toast({
           title: `${response.data.message}`,
@@ -55,7 +52,6 @@ function BookList({ listOfBooks, onSuccessfulUpload }) {
         });
       })
       .catch((error) => {
-        console.log(error);
         toast({
           title: `${error.response.statusText}`,
           status: "error",
@@ -66,14 +62,12 @@ function BookList({ listOfBooks, onSuccessfulUpload }) {
   };
 
   const removeFavorite = async (id) => {
-    console.log(id);
     axios
       .post("http://localhost:5000/remove-favorite", {
         token: `${token}`,
         book_id: `${id}`,
       })
       .then((response) => {
-        console.log(response.data);
         onSuccessfulUpload();
         toast({
           title: `${response.data.message}`,
@@ -83,7 +77,6 @@ function BookList({ listOfBooks, onSuccessfulUpload }) {
         });
       })
       .catch((error) => {
-        console.log(error);
         toast({
           title: `${error.response.statusText}`,
           status: "error",

@@ -53,14 +53,12 @@ export default function SignInForm() {
         password: `${input.user_password}`,
       })
       .then(function (response) {
-        console.log(response.data);
         setToken(response.data.token);
         setIsAuthed(true);
         setIsloading(false);
         redirect("/dashboard");
       })
       .catch(function (error) {
-        console.log(error.response);
         setError({ error: `${error.response.data.error}` });
         setIsAuthed(false);
         setIsloading(false);

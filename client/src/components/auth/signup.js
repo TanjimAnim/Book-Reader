@@ -77,7 +77,7 @@ export default function SignUpForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(error);
+
     if (validate()) {
       Array.from(document.querySelectorAll("input")).forEach(
         (input) => (input.value = "")
@@ -91,14 +91,12 @@ export default function SignUpForm() {
           password: `${input.user_password}`,
         })
         .then(function (response) {
-          console.log(response);
           setToken(response.data.token);
           setIsAuthed(true);
           setIsloading(false);
           redirect("/dashboard");
         })
         .catch(function (error) {
-          console.log(error.response.data);
           setError({ error: `${error.response.data}` });
           setIsAuthed(false);
           setIsloading(false);

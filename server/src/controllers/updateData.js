@@ -41,20 +41,16 @@ const updateData = async (req, res, next) => {
       [email]
     );
 
-    console.log(existingUser.rows);
-
     const getBookData = await pool.query(
       `SELECT * FROM books WHERE book_id=$1 AND user_id=$2`,
       [book_id, existingUser.rows[0].user_id]
     );
 
-    console.log(getBookData.rows);
-
     if (getBookData.rows.length === 0) {
       throw new Error("book not found");
     } else {
       const book_slug = slug(`${book_name}`);
-      console.log(book_slug);
+
       pool.query(
         `UPDATE books SET book_name=$1,year=$2,book_author=$3,book_slug=$4 WHERE book_id=$5 AND user_id=$6`,
         [

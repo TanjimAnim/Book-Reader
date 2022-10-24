@@ -28,14 +28,10 @@ const updateSummary = async (req, res, next) => {
       [email]
     );
 
-    console.log(existingUser.rows);
-
     const getBookData = await pool.query(
       `SELECT * FROM books WHERE book_id=$1 AND user_id=$2`,
       [book_id, existingUser.rows[0].user_id]
     );
-
-    console.log(getBookData.rows);
 
     if (getBookData.rows.length === 0) {
       throw new Error("book not found");

@@ -32,14 +32,11 @@ const addData = async (req, res, next) => {
       throw new Error("Error in author");
     }
     const book_slug = slug(`${book_name}`);
-    console.log(book_slug);
 
     const existingUser = await pool.query(
       `SELECT email,user_id FROM accounts WHERE email= $1;`,
       [email]
     );
-
-    console.log(existingUser.rows);
 
     if (existingUser.rows.length === 0) {
       throw new Error("user not found");

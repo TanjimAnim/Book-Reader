@@ -60,14 +60,12 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
   };
 
   const addFavorite = async (id) => {
-    console.log(id);
     axios
       .post("http://localhost:5000/add-favorite", {
         token: `${token}`,
         book_id: `${id}`,
       })
       .then((response) => {
-        console.log(response.data);
         onSuccessfulUpload();
         toast({
           title: `${response.data.message}`,
@@ -77,7 +75,6 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
         });
       })
       .catch((error) => {
-        console.log(error);
         toast({
           title: `${error.response.statusText}`,
           status: "error",
@@ -88,14 +85,12 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
   };
 
   const removeFavorite = async (id) => {
-    console.log(id);
     axios
       .post("http://localhost:5000/remove-favorite", {
         token: `${token}`,
         book_id: `${id}`,
       })
       .then((response) => {
-        console.log(response.data);
         onSuccessfulUpload();
         toast({
           title: `${response.data.message}`,
@@ -105,7 +100,6 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
         });
       })
       .catch((error) => {
-        console.log(error);
         toast({
           title: `${error.response.statusText}`,
           status: "error",
@@ -124,7 +118,6 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
         book_summary: `${input.book_summary}`,
       })
       .then((response) => {
-        console.log("update", response);
         onSuccessfulUpload();
         toast({
           title: `${response.data.message}`,
@@ -134,7 +127,6 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
         });
       })
       .catch((error) => {
-        console.log(error.response.statusText);
         toast({
           title: `${error.response.statusText}`,
           status: "error",
