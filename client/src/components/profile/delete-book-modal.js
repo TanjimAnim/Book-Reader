@@ -20,7 +20,7 @@ function DeleteBookModal({ isOpen, onClose, onSuccessfulUpload, id }) {
   const navigate = useNavigate();
   const token = getToken();
   const toast = useToast(); // toast hooks for push notification
-  const deleteBook = async () => {
+  const deleteBook = () => {
     axios
       .post("http://localhost:5000/delete-book", {
         token: `${token}`,

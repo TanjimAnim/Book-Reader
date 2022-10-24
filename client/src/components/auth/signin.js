@@ -40,14 +40,14 @@ export default function SignInForm() {
     setInput(input);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     Array.from(document.querySelectorAll("input")).forEach(
       (input) => (input.value = "")
     );
     setIsloading(true);
 
-    const response = await axios
+    axios
       .post("http://localhost:5000/signin", {
         email: `${input.user_email}`,
         password: `${input.user_password}`,

@@ -36,7 +36,7 @@ function FavoriteBookList({ listOfBooks, onSuccessfulUpload }) {
   const { getToken } = useAuthContext();
   const token = getToken();
 
-  const addFavorite = async (id) => {
+  const addFavorite = (id) => {
     axios
       .post("http://localhost:5000/add-favorite", {
         token: `${token}`,
@@ -61,7 +61,7 @@ function FavoriteBookList({ listOfBooks, onSuccessfulUpload }) {
       });
   };
 
-  const removeFavorite = async (id) => {
+  const removeFavorite = (id) => {
     axios
       .post("http://localhost:5000/remove-favorite", {
         token: `${token}`,
@@ -104,7 +104,7 @@ function FavoriteBookList({ listOfBooks, onSuccessfulUpload }) {
           {listOfBooks
             .filter((item) => item.favorite === true)
             .map((items) => (
-              <div>
+              <div key={items.book_id}>
                 <Box
                   marginX="88px"
                   key={items.book_id}

@@ -29,6 +29,7 @@ export default function Dashboard() {
       .catch(function (error) {
         console.log(error.response);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

@@ -15,7 +15,7 @@ function Navbar() {
   const { getToken, setIsAuthed } = useAuthContext();
   const token = getToken();
 
-  const logout = async () => {
+  const logout = () => {
     axios
       .post("http://localhost:5000/logout", {
         token: `${token}`,

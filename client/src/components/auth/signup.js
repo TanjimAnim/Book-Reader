@@ -75,7 +75,7 @@ export default function SignUpForm() {
     return isValid;
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (validate()) {
@@ -84,7 +84,7 @@ export default function SignUpForm() {
       );
       setIsloading(true);
 
-      const response = axios
+      axios
         .post("http://localhost:5000/signup", {
           username: `${input.user_username}`,
           email: `${input.user_email}`,

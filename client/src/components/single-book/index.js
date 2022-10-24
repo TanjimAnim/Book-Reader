@@ -59,7 +59,7 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
     setInput(input);
   };
 
-  const addFavorite = async (id) => {
+  const addFavorite = (id) => {
     axios
       .post("http://localhost:5000/add-favorite", {
         token: `${token}`,
@@ -84,7 +84,7 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
       });
   };
 
-  const removeFavorite = async (id) => {
+  const removeFavorite = (id) => {
     axios
       .post("http://localhost:5000/remove-favorite", {
         token: `${token}`,
@@ -109,7 +109,7 @@ function SingleBookPage({ listOfBooks, onSuccessfulUpload }) {
       });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     axios
       .post("http://localhost:5000/update-summary", {

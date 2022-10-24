@@ -30,12 +30,12 @@ function AddBookModal(props) {
     input[event.target.name] = event.target.value;
     setInput(input);
   };
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     Array.from(document.querySelectorAll("input")).forEach(
       (input) => (input.value = "")
     );
-    const response = await axios
+    axios
       .post("http://localhost:5000/add-books", {
         token: `${token}`,
         book_author: `${input.book_author}`,
